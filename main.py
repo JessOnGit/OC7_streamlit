@@ -387,10 +387,3 @@ sns.scatterplot(df_comparison, x=ft1, y=ft2, hue='true', style='true')
 sns.scatterplot(df_comparison_client, x=ft1, y=ft2, s=200, label='Current', color='black')
 plt.legend(title='Risky clients', bbox_to_anchor=(1.05, 1))
 col4.pyplot(comparison)
-
-
-
-
-
-
-
