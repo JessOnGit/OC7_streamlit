@@ -1,10 +1,27 @@
 import unittest
 import os
-
 import pandas as pd
 import json
+# from utils import get_median_scores
 
 
+# SubFunctions
+def are_different(num1, num2):
+    return num1 != num2
+
+
+def is_scalar(value):
+    return isinstance(value, (int, float))
+
+
+def has_different_values(df):
+    if isinstance(df, pd.DataFrame):
+        return df.nunique().gt(1).any()
+    else:
+        return False
+
+
+# UnitTest Folder contents class
 class TestFolderContents(unittest.TestCase):
 
     def test_refs_folder_contents(self):
@@ -53,3 +70,35 @@ class TestFolderContents(unittest.TestCase):
         with open('refs/data_columns.json', 'r') as json_file:
             ref_columns = json.load(json_file)
         self.assertEqual(ref_columns, columns)
+
+
+# Copy version of get_median_scores from utils (cached in streamlit for the app
+# >> impossible to import without having a streamlit conflict)
+def get_median_scores2():
+    sc0 = pd.read_csv('refs/scores0.csv')
+    sc1 = pd.read_csv('refs/scores1.csv')
+    median_sc0 = sc0.median()[0]
+    median_sc1 = sc1.median()[0]
+    return sc0, sc1, median_sc0, median_sc1
+
+
+# UnitTest functions testing class
+class TestUtilsFunctions(unittest.TestCase):
+
+    def test_median_scoring(self):
+        sc0, sc1, median_sc0, median_sc1 = get_median_scores2()
+
+        # Check sc0 and sc1 are lists and both lists contain various values
+        self.assertTrue(has_different_values(sc0))
+        self.assertTrue(has_different_values(sc1))
+
+        # Check that both median are scalars
+        self.assertTrue(is_scalar(median_sc0))
+        self.assertTrue(is_scalar(median_sc1))
+
+        # Check that medians are different from one another
+        self.assertTrue(are_different(median_sc0, median_sc1))
+
+
+if __name__ == "__main__":
+     unittest.main()
