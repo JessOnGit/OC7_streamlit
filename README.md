@@ -12,7 +12,7 @@ Results shown on main page :
   - Position of current client values for two main features in regard of others clients positions
 ## Advanced Functionnalities
 Possibility to simulate current clients risk by changing the value of the 3 main features involved in current clients risk augmentation.
-## Files
+## Repo Contents
 ### Folders
 - refs : reference files used for global data comparison (generated from train files)
 - data_test_clean : sample of X and y (target) test set (after 80/20 split of train set)
